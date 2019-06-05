@@ -3,7 +3,8 @@ var
   config       = require('./config/gulp'),
   del          = require('del'),
   nodemon      = require('gulp-nodemon'),
-  browserSync  = require('browser-sync').create()
+  browserSync  = require('browser-sync').create(),
+  sass         = require('gulp-sass')
 ;
 
 // CLEAN
@@ -28,6 +29,7 @@ gulp.task('dev:styles', function() {
   return gulp
     .src(config.paths.styles.src)
     //Process styles
+    .pipe(sass())
     .pipe(gulp.dest(config.paths.styles.dist))
 })
 gulp.task('watch:styles', function(done) {
