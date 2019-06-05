@@ -38,7 +38,7 @@ gulp.task('watch:styles', function(done) {
 })
 
 //SERVER
-gulp.task('server', function (cb) {
+function server(cb) {
   var called = false;
   return nodemon(config.plugins.nodemon)
   .on('start', function () {
@@ -47,7 +47,7 @@ gulp.task('server', function (cb) {
       cb();
     }
   })
-});
+}
 
 // BROWSER-SYNC
 
@@ -55,14 +55,13 @@ function browserSyncInit(done) {
   browserSync.init(config.plugins.browserSync)
   done();
 }
-gulp.task('browser-sync', browserSyncInit);
 
 //DEV
-gulp.task('dev', gulp.parallel('dev:styles', 'dev:views'));
+const dev = gulp.parallel('dev:styles', 'dev:views');
 
 //WATCH
-gulp.task('watch', gulp.parallel('watch:styles', 'watch:views'));
+const watch = gulp.parallel('watch:styles', 'watch:views');
 
 //DEFAULT
-gulp.task('default', gulp.series('clean', 'dev', 'server', gulp.parallel('watch','browser-sync')));
+gulp.task('default', gulp.series('clean', dev, server, gulp.parallel(watch, browserSyncInit)));
 
