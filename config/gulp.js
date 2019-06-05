@@ -20,7 +20,6 @@ module.exports = {
 	    files: [ 
 	      paths.dist_files 
 	    ],
-	    browser: 'google chrome',
 	    notify: true
     },
     nodemon: {
