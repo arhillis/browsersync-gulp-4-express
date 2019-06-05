@@ -9,4 +9,3 @@ This is a basic setup for live reload of your browser when working with [Browser
 - ```gulp```
 - make changes to files in src and see updates reflected in the browser.
 
-Little change
