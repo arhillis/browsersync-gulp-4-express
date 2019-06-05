@@ -8,9 +8,9 @@ var
 ;
 
 // CLEAN
-gulp.task('clean', function() {
+function clean() {
   return del(config.paths.dist_dir);
-});
+}
 
 // VIEWS
 gulp.task('dev:views', function() {
@@ -19,23 +19,24 @@ gulp.task('dev:views', function() {
     //Process views
     .pipe(gulp.dest(config.paths.views.dist))
 })
-gulp.task('watch:views', function(done) {
+function watchViews(done) {
   gulp.watch(config.paths.views.src, gulp.series('dev:views'));
   done();
-})
+}
 
 //STYLES
-gulp.task('dev:styles', function() {
+function devStyles() {
   return gulp
     .src(config.paths.styles.src)
     //Process styles
     .pipe(sass())
     .pipe(gulp.dest(config.paths.styles.dist))
-})
-gulp.task('watch:styles', function(done) {
-  gulp.watch(config.paths.styles.src, gulp.series('dev:styles'));
+}
+
+function watchStyles(done) {
+  gulp.watch(config.paths.styles.src, gulp.series(devStyles));
   done();
-})
+}
 
 //SERVER
 function server(cb) {
@@ -57,11 +58,11 @@ function browserSyncInit(done) {
 }
 
 //DEV
-const dev = gulp.parallel('dev:styles', 'dev:views');
+const dev = gulp.parallel(devStyles, 'dev:views');
 
 //WATCH
-const watch = gulp.parallel('watch:styles', 'watch:views');
+const watch = gulp.parallel(watchStyles, watchViews);
 
 //DEFAULT
-gulp.task('default', gulp.series('clean', dev, server, gulp.parallel(watch, browserSyncInit)));
+exports.default = gulp.series(clean, dev, server, gulp.parallel(watch, browserSyncInit));
 
