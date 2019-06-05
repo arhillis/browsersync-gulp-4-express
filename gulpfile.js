@@ -13,14 +13,15 @@ function clean() {
 }
 
 // VIEWS
-gulp.task('dev:views', function() {
+function devViews() {
   return gulp
     .src(config.paths.views.src)
     //Process views
     .pipe(gulp.dest(config.paths.views.dist))
-})
+}
+
 function watchViews(done) {
-  gulp.watch(config.paths.views.src, gulp.series('dev:views'));
+  gulp.watch(config.paths.views.src, gulp.series(devViews));
   done();
 }
 
@@ -58,7 +59,7 @@ function browserSyncInit(done) {
 }
 
 //DEV
-const dev = gulp.parallel(devStyles, 'dev:views');
+const dev = gulp.parallel(devStyles, devViews);
 
 //WATCH
 const watch = gulp.parallel(watchStyles, watchViews);
