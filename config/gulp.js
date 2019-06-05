@@ -6,7 +6,7 @@ var paths = {
 		dist: 'dist/views'
 	},
 	styles: {
-		src: 'src/styles/**/*.css',
+		src: 'src/scss/**/*.scss',
 		dist: 'dist/public/styles'
 	}
 };
